@@ -44,11 +44,22 @@
 }
 
 .map-container {
-    min-height: 400px;
+    height: 400px;
+    /* Default height */
+    width: 100%;
     border-radius: 1rem;
     overflow: hidden;
     box-shadow: var(--shadow-md);
     background-color: #e2e8f0;
+}
+
+@media (max-width: 768px) {
+    .map-container {
+        height: auto;
+        aspect-ratio: 1 / 1;
+        /* Square on mobile for better framing */
+        max-height: 400px;
+    }
 }
 
 @media (min-width: 900px) {

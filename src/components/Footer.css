@@ -65,6 +65,8 @@
     flex-direction: column;
     gap: 1rem;
     align-items: center;
+    /* Center align for mobile */
+    text-align: center;
 }
 
 .contact-list li {
@@ -72,6 +74,10 @@
     gap: 0.75rem;
     align-items: flex-start;
     color: #cbcae0;
+    justify-content: center;
+    /* Center items on mobile */
+    text-align: left;
+    /* Keep text left-aligned inside the centered block if preferred, or center everything */
 }
 
 .contact-icon {
@@ -100,5 +106,9 @@
 
     .contact-list {
         align-items: flex-start;
+    }
+
+    .contact-list li {
+        justify-content: flex-start;
     }
 }

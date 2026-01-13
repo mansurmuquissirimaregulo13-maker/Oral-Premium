@@ -40,8 +40,8 @@ const Gallery = () => {
         <div className="gallery-page">
             <div className="page-header">
                 <div className="container">
-                    <h1>Galeria</h1>
-                    <p>Conheça nossas instalações e equipamentos modernos.</p>
+                    <h1>Resultados</h1>
+                    <p>Veja os sorrisos transformados e nossa estrutura.</p>
                 </div>
             </div>
 

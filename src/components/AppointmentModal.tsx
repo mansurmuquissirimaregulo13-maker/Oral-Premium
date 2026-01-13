@@ -7,9 +7,11 @@ const AppointmentModal = () => {
     const { isModalOpen, closeModal } = useModal();
     const [formData, setFormData] = useState({
         name: '',
+        phone: '',
         treatment: '',
         date: '',
-        time: ''
+        time: '',
+        notes: ''
     });
 
     if (!isModalOpen) return null;
@@ -28,7 +30,7 @@ const AppointmentModal = () => {
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
 
-        const message = `Olá, me chamo *${formData.name}*.\n\nGostaria de agendar uma consulta.\n\n*Motivo:* ${formData.treatment}\n*Preferência de Dia:* ${formData.date}\n*Preferência de Horário:* ${formData.time}`;
+        const message = `Olá, me chamo *${formData.name}*.\n\nGostaria de agendar uma consulta.\n\n*Telefone:* ${formData.phone}\n*Motivo:* ${formData.treatment}\n*Preferência de Dia:* ${formData.date}\n*Preferência de Horário:* ${formData.time}\n*Observações:* ${formData.notes || 'Nenhuma'}`;
 
         const phoneNumber = "258842199338";
         const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
@@ -37,10 +39,10 @@ const AppointmentModal = () => {
         closeModal();
 
         // Reset form (optional)
-        setFormData({ name: '', treatment: '', date: '', time: '' });
+        setFormData({ name: '', phone: '', treatment: '', date: '', time: '', notes: '' });
     };
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         setFormData({
             ...formData,
             [e.target.name]: e.target.value
@@ -80,6 +82,21 @@ const AppointmentModal = () => {
                                 style={{ width: '100%' }}
                             />
                         </div>
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="phone">Telefone / WhatsApp</label>
+                        <input
+                            type="tel"
+                            id="phone"
+                            name="phone"
+                            className="form-input"
+                            placeholder="Seu contacto"
+                            required
+                            value={formData.phone}
+                            onChange={handleChange}
+                            style={{ width: '100%' }}
+                        />
                     </div>
 
                     <div className="form-group">
@@ -128,6 +145,20 @@ const AppointmentModal = () => {
                                 style={{ width: '100%' }}
                             />
                         </div>
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="notes">Observações / Detalhes (Opcional)</label>
+                        <textarea
+                            id="notes"
+                            name="notes"
+                            className="form-input"
+                            placeholder="Alguma informação extra?"
+                            value={formData.notes}
+                            onChange={handleChange}
+                            rows={2}
+                            style={{ width: '100%', resize: 'none' }}
+                        />
                     </div>
 
                     <button type="submit" className="form-submit">

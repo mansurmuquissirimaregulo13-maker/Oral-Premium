@@ -7,30 +7,15 @@ const AppointmentModal = () => {
     const { isModalOpen, closeModal } = useModal();
     const [formData, setFormData] = useState({
         name: '',
-        phone: '',
-        treatment: '',
-        date: '',
-        time: '',
-        notes: ''
+        feeling: ''
     });
 
     if (!isModalOpen) return null;
 
-    const treatments = [
-        "Dor de dente",
-        "Limpeza / Check-up",
-        "Aparelho Dentário",
-        "Implante Dentário",
-        "Clareamento",
-        "Prótese",
-        "Odontopediatria (Crianças)",
-        "Outro"
-    ];
-
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
 
-        const message = `Olá, me chamo *${formData.name}*.\n\nGostaria de agendar uma consulta.\n\n*Telefone:* ${formData.phone}\n*Motivo:* ${formData.treatment}\n*Preferência de Dia:* ${formData.date}\n*Preferência de Horário:* ${formData.time}\n*Observações:* ${formData.notes || 'Nenhuma'}`;
+        const message = `Olá, me chamo *${formData.name}*.\n\n*O que estou sentindo:* ${formData.feeling}`;
 
         const phoneNumber = "258842199338";
         const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
@@ -38,11 +23,11 @@ const AppointmentModal = () => {
         window.open(whatsappUrl, '_blank');
         closeModal();
 
-        // Reset form (optional)
-        setFormData({ name: '', phone: '', treatment: '', date: '', time: '', notes: '' });
+        // Reset form
+        setFormData({ name: '', feeling: '' });
     };
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setFormData({
             ...formData,
             [e.target.name]: e.target.value
@@ -63,8 +48,8 @@ const AppointmentModal = () => {
                     <X size={24} />
                 </button>
 
-                <h2 className="modal-title">Agendar Consulta</h2>
-                <p className="modal-subtitle">Preencha os dados abaixo para agilizar seu atendimento no WhatsApp.</p>
+                <h2 className="modal-title">Fale Comigo</h2>
+                <p className="modal-subtitle">Diga-nos o que está a sentir e entraremos em contacto consigo via WhatsApp.</p>
 
                 <form className="appointment-form" onSubmit={handleSubmit}>
                     <div className="form-group">
@@ -85,78 +70,16 @@ const AppointmentModal = () => {
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="phone">Telefone / WhatsApp</label>
-                        <input
-                            type="tel"
-                            id="phone"
-                            name="phone"
-                            className="form-input"
-                            placeholder="Seu contacto"
-                            required
-                            value={formData.phone}
-                            onChange={handleChange}
-                            style={{ width: '100%' }}
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label htmlFor="treatment">Qual é o motivo/dor?</label>
-                        <select
-                            id="treatment"
-                            name="treatment"
-                            className="form-select"
-                            required
-                            value={formData.treatment}
-                            onChange={handleChange}
-                            style={{ width: '100%' }}
-                        >
-                            <option value="">Selecione uma opção</option>
-                            {treatments.map(t => (
-                                <option key={t} value={t}>{t}</option>
-                            ))}
-                        </select>
-                    </div>
-
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                        <div className="form-group">
-                            <label htmlFor="date">Data Preferida</label>
-                            <input
-                                type="date"
-                                id="date"
-                                name="date"
-                                className="form-input"
-                                required
-                                value={formData.date}
-                                onChange={handleChange}
-                                style={{ width: '100%' }}
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label htmlFor="time">Horário Preferido</label>
-                            <input
-                                type="time"
-                                id="time"
-                                name="time"
-                                className="form-input"
-                                required
-                                value={formData.time}
-                                onChange={handleChange}
-                                style={{ width: '100%' }}
-                            />
-                        </div>
-                    </div>
-
-                    <div className="form-group">
-                        <label htmlFor="notes">Observações / Detalhes (Opcional)</label>
+                        <label htmlFor="feeling">O que está sentindo?</label>
                         <textarea
-                            id="notes"
-                            name="notes"
+                            id="feeling"
+                            name="feeling"
                             className="form-input"
-                            placeholder="Alguma informação extra?"
-                            value={formData.notes}
+                            placeholder="Descreva o que sente (dor, desconforto, dúvida...)"
+                            value={formData.feeling}
                             onChange={handleChange}
-                            rows={2}
+                            required
+                            rows={4}
                             style={{ width: '100%', resize: 'none' }}
                         />
                     </div>
